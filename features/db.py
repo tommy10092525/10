@@ -24,7 +24,6 @@ def setPost(cur:sqlite3.Cursor,content:str) -> None:
             INSERT INTO posts(content,created_at)
             VALUES(?,?)""",
             (content, datetime.now()))
-        cur.commit()
 
 def getPostById(cur:sqlite3.Cursor,id:int):
     result=cur.execute("""
@@ -33,8 +32,10 @@ def getPostById(cur:sqlite3.Cursor,id:int):
         WHERE id=?""",(id,)).fetchone()
     return result
 def getPostCount(cur:sqlite3.Cursor):
-    result=cur.execute("""SELECT COUNT(*)
-                    FROM posts""").fetchone()
-    return result["COUNT(*)"]
+    result=cur.execute("""
+        SELECT COUNT(*)
+        AS count
+        FROM posts""").fetchone()
+    return result["count"]
 
 
