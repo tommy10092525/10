@@ -10,9 +10,9 @@
 
 <body>
     <div class="container">
-        <h2>投稿</h2>
+        <h2 class="pt-5">投稿</h2>
         <form method="POST">
-            <div class="mb-3">
+            <div class="my-3">
                 <label class="form-label">内容</label>
                 <textarea class="form-control" name="content" rows="3" required></textarea>
                 <div class="valid-feedback">入力してください</div>
@@ -24,7 +24,7 @@
         <h2>投稿一覧</h2>
         {% for post in data["posts"] %}
         <div class="post card my-2 p-2">
-            <h4>{{ post["content"] }}</h4>
+            <p>{{ post["content"] }}</p>
             <p>{{ post["created_at"] }}</p>
         </div>
         {% endfor %}
