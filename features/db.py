@@ -3,6 +3,12 @@ from datetime import datetime
 from typing import Any
 
 
+def dict_factory(cur:sqlite3.Cursor,row):
+    d={}
+    for idx,col in enumerate(cur.description):
+        d[col[0]]=row[idx]
+    return d
+
 def get_posts(cur: sqlite3.Cursor) -> list[dict[str, Any]]:
     result = cur.execute("""
         SELECT id,content,created_at
@@ -10,11 +16,10 @@ def get_posts(cur: sqlite3.Cursor) -> list[dict[str, Any]]:
         ORDER BY created_at DESC
         LIMIT 100"""
         ).fetchall()
-    posts = [dict(id=item[0],content=item[1], created_at=item[2])for item in result]
-    return posts
+    return result
 
 def set_post(cur:sqlite3.Cursor,content:str) -> None:
-    if content!="":
+    if content!="" and len(content)<=1000:
         cur.execute("""
             INSERT INTO posts(content,created_at)
             VALUES(?,?)""",
@@ -26,10 +31,10 @@ def get_post_by_id(cur:sqlite3.Cursor,id:int):
         SELECT id,content,created_at
         FROM posts
         WHERE id=?""",(id,)).fetchone()
-    post=dict(id=result[0],content=result[1],created_at=result[2])
-
+    return result
 def get_post_count(cur:sqlite3.Cursor):
-    cnt=cur.execute("""SELECT COUNT(*)
-                    FROM posts""").fetchone()[0]
-    return cnt
+    result=cur.execute("""SELECT COUNT(*)
+                    FROM posts""").fetchone()
+    return result["COUNT(*)"]
+
 
