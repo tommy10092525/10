@@ -1,5 +1,6 @@
 <head>
     <meta lang="ja">
+    <link rel="stylesheet" href="../static/css/main.css">
 </head>
 
 <body>
@@ -10,7 +11,7 @@
     <p>投稿一覧</p>
     {% for post in data["posts"] %}
     <div class="post">
-        <p>{{ post["content"] }}</p>
+        <h3>{{ post["content"] }}</h3>
         <p>{{ post["created_at"] }}</p>
     </div>
     {% endfor %}
