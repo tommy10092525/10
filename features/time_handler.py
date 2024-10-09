@@ -1,6 +1,6 @@
 import datetime
 
-def generate_caption(time:str):
+def generateTimeCaption(time:str):
     now=datetime.datetime.now()
     created_at=datetime.datetime.strptime(time[:-8],"%Y-%m-%d %X")
     diff=now-created_at
@@ -18,5 +18,5 @@ def generate_caption(time:str):
         return f"{diff.days//365}年前"
 
 if __name__=="__main__":
-    print(generate_caption(datetime.datetime(2024,10,1,0,0,0)))
+    print(generateTimeCaption(datetime.datetime(2024,10,1,0,0,0)))
     
