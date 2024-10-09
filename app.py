@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect
 import sqlite3
 from datetime import datetime
+from features import get_posts
 
 app = Flask(__name__)
 path = "db.sqlite3"
@@ -11,10 +12,7 @@ cur = sqlite3.connect(database=path, check_same_thread=False)
 def index():
     if request.method == "GET":
         data = {"posts": []}
-        result = cur.execute(
-            "select content,created_at from posts limit 100").fetchall()
-        data["posts"] = [dict(content=item[0], created_at=item[1])
-                         for item in result]
+        data["posts"] = get_posts(cur)
         return render_template("index.html", data=data)
     else:
         content = request.form.get("content")
