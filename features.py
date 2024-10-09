@@ -29,6 +29,7 @@ def get_post_by_id(cur:sqlite3.Cursor,id:int):
     post=dict(id=result[0],content=result[1],created_at=result[2])
 
 def get_post_count(cur:sqlite3.Cursor):
-    cnt=cur.execute("""SELECT COUNT(*)""")
+    cnt=cur.execute("""SELECT COUNT(*)
+                    FROM posts""").fetchone()[0]
     return cnt
 
