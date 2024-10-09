@@ -23,6 +23,7 @@ def index():
     else:
         content = request.form.get("content")
         setPost(cur, content)
+        con.commit()
         return redirect("/")
 
 
