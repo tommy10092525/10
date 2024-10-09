@@ -15,7 +15,7 @@ cur = con.cursor()
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "GET":
-        data = {"posts": []}
+        data = {"posts": [],"post_count":getPostCount(cur)}
         data["posts"] = [dict(id=i["id"], content=i["content"], created_at=generateTimeCaption(
             i["created_at"]))for i in getPosts(cur)]
         print(getPostCount(cur))

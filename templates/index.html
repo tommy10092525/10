@@ -23,9 +23,9 @@
                 <button type="submit" class="btn btn-primary mb-3">投稿する</button>
             </div>
         </form>
-        <h2 class="my-4">投稿一覧</h2>
+        <h2 class="my-4">投稿一覧({{data.post_count}})</h2>
         <ul class="list-group">
-            {% for post in data["posts"] %}
+            {% for post in data.posts %}
 
             <li class="list-group-item">
                 <div class="post my-2 p-2">
