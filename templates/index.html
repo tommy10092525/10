@@ -9,16 +9,26 @@
 </head>
 
 <body>
-    <form method="POST">
-        <textarea name="content"></textarea>
-        <input type="submit" value="投稿">
-    </form>
-    <p>投稿一覧</p>
-    {% for post in data["posts"] %}
-    <div class="post">
-        <h3>{{ post["content"] }}</h3>
-        <p>{{ post["created_at"] }}</p>
+    <div class="container">
+        <h2>投稿</h2>
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label">内容</label>
+                <textarea class="form-control" name="content" rows="3" required></textarea>
+                <div class="valid-feedback">入力してください</div>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3">投稿する</button>
+            </div>
+        </form>
+        <h2>投稿一覧</h2>
+        {% for post in data["posts"] %}
+        <div class="post card my-2 p-2">
+            <h4>{{ post["content"] }}</h4>
+            <p>{{ post["created_at"] }}</p>
+        </div>
+        {% endfor %}
+
     </div>
-    {% endfor %}
 
 </body>
