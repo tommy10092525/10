@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect
 import sqlite3
 from datetime import datetime
-from features import get_posts
+from features import get_posts,set_post
 
 app = Flask(__name__)
 path = "db.sqlite3"
@@ -16,9 +16,7 @@ def index():
         return render_template("index.html", data=data)
     else:
         content = request.form.get("content")
-        cur.execute("insert into posts(content,created_at) values(?,?)",
-                    (content, datetime.now()))
-        cur.commit()
+        set_post(cur,content)
         return redirect("/")
 
 
