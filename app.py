@@ -4,6 +4,7 @@ from datetime import datetime
 from features import get_posts,set_post
 
 app = Flask(__name__)
+
 path = "db.sqlite3"
 cur = sqlite3.connect(database=path, check_same_thread=False)
 
