@@ -17,7 +17,7 @@
         <h6>{{item.division.name}}</h6>
         {%for kind in item.kinds%}
         <div class="list-group">
-          <a href="#" class="list-group-item list-group-item-action">{{kind.name}}</a>
+          <a href="/kind/{{kind.id}}" class="list-group-item list-group-item-action">{{kind.name}}</a>
         </div>
         {%endfor%}
       </li>
