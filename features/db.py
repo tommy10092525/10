@@ -51,6 +51,13 @@ def getThreadsByKindId(cur: sqlite3.Cursor, kindId: int) -> list[dict[str, Any]]
         limit 100""", (kindId,)).fetchall()
     return dateConverter(result)
 
+def getThreadCountById(cur:sqlite3.Cursor,kindId:int):
+    result=cur.execute("""--sql:
+        select count(*)
+        as count
+        from threads
+        where kind_id=?""",(kindId,)).fetchone()["count"]
+    return result
 
 def getDivisions(cur: sqlite3.Cursor) -> list[dict[str, Any]]:
     result = cur.execute("""--sql
@@ -79,11 +86,11 @@ def addThread(cur: sqlite3.Cursor, title: str, kindId: int):
     cur.execute("""--sql
         insert into threads(title,kind_id,created_at)
         values(?,?,?)""", (title, kindId, datetime.now()))
-    result = cur.execute("""--sql
+    threadId = cur.execute("""--sql
         select max(id)
         as max
         from threads""").fetchone()["max"]
-    return dateConverter(result)
+    return threadId
 
 
 def addResponse(cur: sqlite3.Cursor, content: str, threadId: int):

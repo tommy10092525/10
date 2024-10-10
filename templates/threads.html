@@ -2,31 +2,34 @@
     <meta lang="ja">
     <link rel="stylesheet" href="../static/css/main.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-      crossorigin="anonymous"></script>
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width">
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="container">
         <form action="" method="post">
             <div class="mb-3">
-                <label for="" class="form-label">スレッドのタイトル</label>
+                <label for="" class="form-label my-2">スレッドのタイトル</label>
                 <textarea class="form-control" name="title" id="" rows="3"></textarea>
                 <label for="" class="form-label">本文</label>
-                <textarea class="form-control" name="content" id="" rows="3"></textarea>
-                <button
-                    type="submit"
-                    class="btn btn-primary"
-                >
+                <textarea class="form-control my-2" name="content" id="" rows="3"></textarea>
+                <button type="submit" class="btn btn-primary">
                     投稿する
                 </button>
-                
             </div>
         </form>
+        <h2>投稿一覧({{data.threadsCount}})</h2>
         {%for thread in data.threads%}
-        <p>{{thread.title}}</p>
+        <div class="card w-100 my-3">
+            <div class="card-body">
+              <h5 class="card-title">{{thread.title}}</h5>
+              <a href="/thread/{{thread.id}}" class="card-link">開く</a>
+            </div>
+          </div>
         {%endfor%}
     </div>
-  </body>
+</body>

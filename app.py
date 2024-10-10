@@ -25,7 +25,7 @@ def index():
 @app.route("/kind/<int:kind_id>",methods=["GET","POST"])
 def threads(kind_id):
     if request.method=="GET":
-        data=dict(threads=db.getThreadsByKindId(cur,kind_id))
+        data=dict(threads=db.getThreadsByKindId(cur,kind_id),threadsCount=db.getThreadCountById(cur=cur,kindId=kind_id))
         print(data)
         return render_template("threads.html",data=data)
     else:
@@ -34,13 +34,18 @@ def threads(kind_id):
         threadId=addThread(cur=cur,title=title,kindId=kind_id)
         addResponse(cur=cur,content=content,threadId=threadId)
         con.commit()
-        return redirect(f"/{kind_id}")
+        return redirect(f"/kind/{kind_id}")
 
 @app.route("/thread/<int:thread_id>",methods=["GET","POST"])
 def thread(thread_id):
     if request.method=="GET":
         data=dict(thread=db.getThreadById(cur,thread_id),responses=db.getResponsesByThreadId(cur,thread_id))
         return render_template("thread.html",data=data)
+    else:
+        content=request.form["content"]
+        db.addResponse(content=content,cur=cur,threadId=thread_id)
+        con.commit()
+        return redirect(f"/thread/{thread_id}")
         
         
 if __name__ == "__main__":

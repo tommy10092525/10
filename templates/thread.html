@@ -10,8 +10,22 @@
 </head>
 
 <div class="container">
-    <p>{{data.thread.name}}</p>
-    {%for response in data.responses%}
-    <p>{{response.content}}</p>
-    {%endfor%}
+    <form action="" method="POST">
+        <div class="mb-3">
+            <label for="" class="form-label">本文</label>
+            <textarea class="form-control" name="content" id="" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">投稿する
+        </button>
+
+    </form>
+    <h2>{{data.thread.title}}</h2>
+    <ul class="list-group list-group-numbered">
+
+        {%for response in data.responses%}
+        <li class="list-group-item">{{response.content}}</li>
+        {%endfor%}
+    </ul>
+
 </div>
