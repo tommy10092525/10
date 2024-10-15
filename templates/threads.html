@@ -1,35 +1,42 @@
 <head>
     <meta lang="ja">
-    <link rel="stylesheet" href="../static/css/main.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/css/output.css">
     <meta name="viewport" content="width=device-width">
 </head>
 
 <body>
-    <div class="container">
+    <div class="container w-full px-10">
+        <div
+            class="my-5 shadow text-center font-semibold text-2xl border-t-2 border-r-2 border-b-2 border-l-8 border-purple-600">
+            <p class="">{{data.kind.name}}</p>
+        </div>
         <form action="" method="post">
             <div class="mb-3">
-                <label for="" class="form-label my-2">スレッドのタイトル</label>
-                <textarea class="form-control" name="title" id="" rows="3"></textarea>
-                <label for="" class="form-label">本文</label>
-                <textarea class="form-control my-2" name="content" id="" rows="3"></textarea>
-                <button type="submit" class="btn btn-primary">
+                <div class="border-r-2 border-b-2 border-t-2 border-l-8 font-mono border-gray-500 w-full">
+                    <p class="pl-3">スレッドのタイトル</p>
+                </div>
+                <div class="my-3">
+                    <textarea class="form-control w-full border-2 border-blue-700 rounded-md" name="title" id="" rows="3" required></textarea>
+                </div>
+                <div class="border-r-2 border-b-2 border-t-2 border-l-8 font-mono border-gray-500">
+                    <p class="pl-3">本文</p>
+                </div>
+                <div class="my-3">
+                    <textarea class="form-control w-full border-2 border-blue-700 rounded-md" name="content" id="" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="border-2 border-black rounded-md bg-blue-500 p-1 text-white">
                     投稿する
                 </button>
             </div>
         </form>
-        <h2>投稿一覧({{data.threadsCount}})</h2>
-        {%for thread in data.threads%}
-        <div class="card w-100 my-3">
-            <div class="card-body">
-              <!-- <h5 class="card-title">{{thread.title}}</h5> -->
-              <a href="/thread/{{thread.id}}" class="card-link">{{thread.title}}</a>
-            </div>
+        <div class="border-r-2 border-b-2 border-t-2 border-l-8 border-black my-6 font-semibold text-2xl">
+
+            <p class="ml-3">スレッド一覧({{data.threadsCount}})</p>
           </div>
+        {%for thread in data.threads%}
+            <div class="border-r-2 border-b-2 border-t-2 border-l-8 font-mono py-3 border-gray-500 my-3 ml-3">
+                <a href="/thread/{{thread.id}}" class="ml-2 text-blue-800 underline">{{thread.title}}</a>
+            </div>
         {%endfor%}
     </div>
 </body>

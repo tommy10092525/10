@@ -71,6 +71,12 @@ def getDivisions(cur: sqlite3.Cursor) -> list[dict[str, str]]:
         from divisions""").fetchall()
     return dateConverter(result)
 
+def getKindById(cur:sqlite3.Cursor,id) -> list[dict[str, str]] | dict[str, str]:
+    result=cur.execute("""--sql
+        select *
+        from kinds
+        where id=?""",(id,)).fetchone()
+    return dateConverter(result)
 
 def getKindsByDivisionId(cur: sqlite3.Cursor, divisionsId: int) -> list[dict[str, str]]:
     result = cur.execute("""--sql

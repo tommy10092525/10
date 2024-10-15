@@ -27,7 +27,7 @@ def index():
 @app.route("/kind/<int:kind_id>",methods=["GET","POST"])
 def threads(kind_id):
     if request.method=="GET":
-        data=dict(threads=db.getThreadsByKindId(cur,kind_id)
+        data=dict(kind=db.getKindById(cur,kind_id),threads=db.getThreadsByKindId(cur,kind_id)
             ,threadsCount=db.getThreadCountByKindId(cur=cur,kindId=kind_id))
         print(data)
         return render_template("threads.html",data=data)
