@@ -3,8 +3,8 @@ from datetime import datetime
 from typing import Any
 from features.time_handler import generateTimeCaption
 
-
-def dateConverter(result: list[dict[str, Any]] | dict[str, Any]) -> list[dict[str, Any]]:
+# 取得した―データのカラムにcreated_at含まれている場合、datetime.datetime型に変換する。
+def dateConverter(result: list[dict[str, str]] | dict[str, str]) -> list[dict[str, str]]|dict[str,str]:
     print(type(result))
     if type(result) is list:
         for i in result:
@@ -25,7 +25,7 @@ def dictFactory(cur: sqlite3.Cursor, row):
     return d
 
 
-def getThreadById(cur: sqlite3.Cursor, id: int):
+def getThreadById(cur: sqlite3.Cursor, id: int) -> list[dict[str, str]] | dict[str, str]:
     result = cur.execute("""--sql:
         select *
         from threads
@@ -33,40 +33,46 @@ def getThreadById(cur: sqlite3.Cursor, id: int):
     return dateConverter(result)
 
 
-def getThreads(cur: sqlite3.Cursor) -> list[dict[str, Any]]:
+def getThreads(cur: sqlite3.Cursor) -> list[dict[str, str]] | dict[str, str]:
     result = cur.execute("""--sql
         select *
         from threads
-        order by created_at
+        order by created_at desc
         limit 10""").fetchall()
 
     return dateConverter(result)
 
 
-def getThreadsByKindId(cur: sqlite3.Cursor, kindId: int) -> list[dict[str, Any]]:
+def getThreadsByKindId(cur: sqlite3.Cursor, kindId: int) -> list[dict[str, str]]:
     result = cur.execute("""--sql
         select *
         from threads
         where kind_id=?
+        order by created_at desc
         limit 100""", (kindId,)).fetchall()
     return dateConverter(result)
 
-def getThreadCountById(cur:sqlite3.Cursor,kindId:int):
+
+def getThreadCountByKindId(cur:sqlite3.Cursor,kindId:int) -> str | None:
     result=cur.execute("""--sql:
         select count(*)
         as count
         from threads
         where kind_id=?""",(kindId,)).fetchone()["count"]
-    return result
+    if type(result) is int:
+        return result
+    else:
+        return None
 
-def getDivisions(cur: sqlite3.Cursor) -> list[dict[str, Any]]:
+
+def getDivisions(cur: sqlite3.Cursor) -> list[dict[str, str]]:
     result = cur.execute("""--sql
         select *
         from divisions""").fetchall()
     return dateConverter(result)
 
 
-def getKindsByDivisionsId(cur: sqlite3.Cursor, divisionsId: int) -> list[dict[str, Any]]:
+def getKindsByDivisionId(cur: sqlite3.Cursor, divisionsId: int) -> list[dict[str, str]]:
     result = cur.execute("""--sql
         select *
         from kinds
@@ -74,7 +80,19 @@ def getKindsByDivisionsId(cur: sqlite3.Cursor, divisionsId: int) -> list[dict[st
     return dateConverter(result)
 
 
-def getResponsesByThreadId(cur: sqlite3.Cursor, threadId):
+def getKindCountById(cur:sqlite3.Cursor,id:int) -> int | None:
+    result=cur.execute("""--sql
+        select count(*)
+        as count
+        from threads
+        where kind_id=?""",(id,)).fetchone()["count"]
+    if type(result) is int:
+        return result
+    else:
+        return None
+
+
+def getResponsesByThreadId(cur: sqlite3.Cursor, threadId) -> list[dict[str, str]] | dict[str, str]:
     result = cur.execute("""--sql
         select *
         from responses
@@ -82,7 +100,7 @@ def getResponsesByThreadId(cur: sqlite3.Cursor, threadId):
     return dateConverter(result)
 
 
-def addThread(cur: sqlite3.Cursor, title: str, kindId: int):
+def addThread(cur: sqlite3.Cursor, title: str, kindId: int) -> int | None:
     cur.execute("""--sql
         insert into threads(title,kind_id,created_at)
         values(?,?,?)""", (title, kindId, datetime.now()))
@@ -90,10 +108,21 @@ def addThread(cur: sqlite3.Cursor, title: str, kindId: int):
         select max(id)
         as max
         from threads""").fetchone()["max"]
-    return threadId
+    if type(threadId) is int:
+        return threadId
+    else:
+        return None
 
 
 def addResponse(cur: sqlite3.Cursor, content: str, threadId: int):
     cur.execute("""--sql
         insert into responses(content,thread_id,created_at)
         values(?,?,?)""", (content, threadId, datetime.now()))
+    responseId=cur.execute("""--sql
+        select max(id)
+        as max
+        from responses""").fetchone()["max"]
+    if type(responseId) is int:
+        return responseId
+    else:
+        return None

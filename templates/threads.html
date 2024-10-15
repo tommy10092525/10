@@ -26,8 +26,8 @@
         {%for thread in data.threads%}
         <div class="card w-100 my-3">
             <div class="card-body">
-              <h5 class="card-title">{{thread.title}}</h5>
-              <a href="/thread/{{thread.id}}" class="card-link">開く</a>
+              <!-- <h5 class="card-title">{{thread.title}}</h5> -->
+              <a href="/thread/{{thread.id}}" class="card-link">{{thread.title}}</a>
             </div>
           </div>
         {%endfor%}

@@ -16,15 +16,23 @@
       {%for item in data.head%}
       <li class="list-group-item ">
         <h6>{{item.division.name}}</h6>
-        {%for kind in item.kinds%}
+        {%for pair in item.kindCountPairs%}
         <div class="list-group">
-          <a href="/kind/{{kind.id}}" class="list-group-item list-group-item-action">{{kind.name}}</a>
+          <a
+            href="/kind/{{pair.kind.id}}"
+            class="list-group-item list-group-item-action">{{pair.kind.name}}({{pair.count}})</a>
         </div>
         {%endfor%}
       </li>
       {%endfor%}
     </ul>
+    {% for thread in data.threads%}
+    <div class="card w-100 my-3">
+      <div class="card-body">
+        <a href="/thread/{{thread.id}}" class="card-link">{{thread.title}}</a>
+      </div>
+    </div>
+    {%endfor%}
   </div>
-
 
 </body>
