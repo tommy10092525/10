@@ -30,7 +30,8 @@
     </div>
     {% for thread in data.threads%}
     <div class="border-r-2 border-b-2 border-t-2 border-l-8 font-mono py-3 border-gray-500 my-3 ml-3">
-      <a href="/thread/{{thread.id}}" class="ml-2 text-blue-800 underline">{{thread.title}}</a>
+      <a href="/kind/{{thread.kind_id}}" class="ml-2 text-blue-800 underline">{{thread.kind_name}}</a>
+      <a href="/thread/{{thread.thread_id}}" class="text-blue-800 underline">{{thread.thread_title}}</a>
     </div>
     {%endfor%}
   </div>

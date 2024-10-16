@@ -14,14 +14,13 @@ cur = con.cursor()
 @app.route("/", methods=["GET"])
 def index():
     data = dict(threads=[],head=[])
-    data["threads"]=db.getThreads(cur)
+    data["threads"]=db.getThreadsWithKindId(cur)
     for division in db.getDivisions(cur):
         kindCountPairs=[]
         kinds=db.getKindsByDivisionId(cur,division["id"])
         for kind in kinds:
             kindCountPairs.append(dict(kind=kind,count=db.getKindCountById(cur,kind["id"])))
         data["head"].append(dict(division=division,kindCountPairs=kindCountPairs))
-    # pprint(data["head"][0])
     return render_template("index.html", data=data)
 
 @app.route("/kind/<int:kind_id>",methods=["GET","POST"])
@@ -29,7 +28,6 @@ def threads(kind_id):
     if request.method=="GET":
         data=dict(kind=db.getKindById(cur,kind_id),threads=db.getThreadsByKindId(cur,kind_id)
             ,threadsCount=db.getThreadCountByKindId(cur=cur,kindId=kind_id))
-        print(data)
         return render_template("threads.html",data=data)
     else:
         title=request.form["title"]

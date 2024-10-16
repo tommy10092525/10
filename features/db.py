@@ -5,7 +5,6 @@ from features.time_handler import generateTimeCaption
 
 # 取得した―データのカラムにcreated_at含まれている場合、datetime.datetime型に変換する。
 def dateConverter(result: list[dict[str, str]] | dict[str, str]) -> list[dict[str, str]]|dict[str,str]:
-    print(type(result))
     if type(result) is list:
         for i in result:
             for j in i.keys():
@@ -33,11 +32,18 @@ def getThreadById(cur: sqlite3.Cursor, id: int) -> list[dict[str, str]] | dict[s
     return dateConverter(result)
 
 
-def getThreads(cur: sqlite3.Cursor) -> list[dict[str, str]] | dict[str, str]:
+def getThreadsWithKindId(cur: sqlite3.Cursor) -> list[dict[str, str]] | dict[str, str]:
     result = cur.execute("""--sql
-        select *
+        select
+            threads.id as thread_id,
+            threads.title as thread_title,
+            threads.created_at as thread_created_at,
+            kinds.name as kind_name,
+            kinds.id as kind_id
         from threads
-        order by created_at desc
+        inner join kinds
+        on threads.kind_id=kinds.id
+        order by threads.created_at desc
         limit 10""").fetchall()
 
     return dateConverter(result)
