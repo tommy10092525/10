@@ -19,7 +19,7 @@
       <div
         class="border-r-2 border-b-2 border-t-2 border-l-8 my-2 ml-6 border-violet-700 px-4 rounded-sm">
 
-        <a href="/child/{{pair.child.id}}" class="font-normal text-blue-800 underline-offset-2 underline">{{pair.child.name}}({{pair.count}})</a>
+        <a href="/child/{{pair.child.id}}" class="font-normal text-blue-800 underline-offset-2 underline">{{pair.child.name}}</a>
       </div>
       {%endfor%}
       {%endfor%}
@@ -31,7 +31,7 @@
     {% for thread in data.threads%}
     <div class="border-r-2 border-b-2 border-t-2 border-l-8 font-mono py-3 border-gray-500 my-3 ml-3 rounded-sm">
       <a href="/child/{{thread.child_id}}" class="ml-2 text-blue-800 underline">{{thread.children.name}}</a>
-      <a href="/thread/{{thread.thread_id}}" class="text-blue-800 underline">{{thread.title}}</a>
+      <a href="/thread/{{thread.id}}" class="text-blue-800 underline">{{thread.title}}</a>
     </div>
     {%endfor%}
   </div>

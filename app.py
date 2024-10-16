@@ -29,7 +29,8 @@ def threads(child_id):
     if request.method=="GET":
         data=dict(child=dict(db.supabase.table("children").select("*").eq("id",child_id).execute())["data"][0]
             ,threads=dict(db.supabase.table("threads").select("*").eq("child_id",child_id).execute())["data"]
-            ,threadsCount=dict(db.supabase.table("threads").select("*",count="exact",head=True).execute())["count"])
+        )
+        data["threads_count"]=len(data["threads"])
         pprint(data)
         return render_template("threads.html",data=data)
     else:
@@ -40,8 +41,8 @@ def threads(child_id):
 @app.route("/thread/<int:thread_id>",methods=["GET","POST"])
 def thread(thread_id):
     if request.method=="GET":
-        data=dict(thread=dict(db.supabase.table("threads").select("*").eq("id",f"{thread_id}").execute())["data"][0]
-            ,responses=dict(db.supabase.table("responses").select("*").eq("thread_id",f"{thread_id}").execute())["data"])
+        data=dict(thread=dict(db.supabase.table("threads").select("*").eq("id",thread_id).execute())["data"][0]
+            ,responses=dict(db.supabase.table("responses").select("*").eq("thread_id",thread_id).execute())["data"])
         pprint(data)
         return render_template("thread.html",data=data)
     else:
