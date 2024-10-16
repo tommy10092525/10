@@ -5,31 +5,31 @@
 </head>
 
 <body>
-  <div class="container w-full px-10">
+  <div class="container w-4/5 mx-auto">
     <div
-      class="my-5 shadow text-center font-semibold text-2xl border-t-2 border-r-2 border-b-2 border-l-8 border-sky-500">
+      class="my-5 shadow text-center font-semibold text-2xl border-t-2 border-r-2 border-b-2 border-l-8 border-blue-600 font-mono rounded-sm">
       <p class="">板一覧</p>
     </div>
     <ul class="list-group">
       {%for item in data.head%}
-      <div class="ml-2 border-r-2 border-b-2 border-t-2 border-l-8 my-2 border-emerald-400 text-xl">
+      <div class="ml-2 border-r-2 border-b-2 border-t-2 border-l-8 my-2 font-mono border-green-500 text-xl rounded-sm">
         <p class="ml-3">{{item.division.name}}</p>
       </div>
       {%for pair in item.kindCountPairs%}
       <div
-        class="border-r-2 border-b-2 border-t-2 border-l-8 my-2 ml-6 border-purple-600 px-4 text-blue-800 underline">
+        class="border-r-2 border-b-2 border-t-2 border-l-8 my-2 ml-6 border-violet-700 px-4 rounded-sm">
 
-        <a href="/kind/{{pair.kind.id}}" class="">{{pair.kind.name}}({{pair.count}})</a>
+        <a href="/kind/{{pair.kind.id}}" class="font-normal text-blue-800 underline-offset-2 underline">{{pair.kind.name}}({{pair.count}})</a>
       </div>
       {%endfor%}
       {%endfor%}
     </ul>
-    <div class="border-r-2 border-b-2 border-t-2 border-l-8 border-black my-6 font-semibold text-2xl">
+    <div class="border-r-2 border-b-2 border-t-2 border-l-8 border-black my-6 font-semibold text-2xl rounded-sm">
 
       <p class="ml-3">スレッド一覧</p>
     </div>
     {% for thread in data.threads%}
-    <div class="border-r-2 border-b-2 border-t-2 border-l-8 font-mono py-3 border-gray-500 my-3 ml-3">
+    <div class="border-r-2 border-b-2 border-t-2 border-l-8 font-mono py-3 border-gray-500 my-3 ml-3 rounded-sm">
       <a href="/kind/{{thread.kind_id}}" class="ml-2 text-blue-800 underline">{{thread.kind_name}}</a>
       <a href="/thread/{{thread.thread_id}}" class="text-blue-800 underline">{{thread.thread_title}}</a>
     </div>
