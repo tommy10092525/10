@@ -5,13 +5,13 @@
 </head>
 
 <body>
-    <div class="container w-full px-10">
+    <div class="container w-4/5 mx-auto">
         <div class="border-r-2 border-b-2 border-t-2 border-l-8 font-mono border-red-400 mt-3 rounded-sm">
             <a href="/" class="text-blue-700 underline ml-2">戻る</a>
         </div>
         <div
             class="my-5 shadow text-center font-semibold text-2xl border-t-2 border-r-2 border-b-2 border-l-8 border-purple-600 rounded-sm">
-            <p class="">{{data.kind.name}}</p>
+            <p class="">{{data.child.name}}</p>
         </div>
         <form action="" method="post">
             <div class="mb-3">
@@ -19,14 +19,15 @@
                     <p class="pl-3">スレッドのタイトル</p>
                 </div>
                 <div class="my-3">
-                    <textarea class="form-control w-full border-2 border-blue-700 rounded-md" name="title" id="" rows="3" required></textarea>
+                    <textarea class="form-control w-full border-2 border-blue-700 rounded-md" name="title" id=""
+                        rows="3" required></textarea>
                 </div>
-                <div class="border-r-2 border-b-2 border-t-2 border-l-8 font-mono border-gray-500 rounded-sm">
+                <!-- <div class="border-r-2 border-b-2 border-t-2 border-l-8 font-mono border-gray-500 rounded-sm">
                     <p class="pl-3">本文</p>
                 </div>
                 <div class="my-3">
                     <textarea class="form-control w-full border-2 border-blue-700 rounded-md" name="content" id="" rows="5" required></textarea>
-                </div>
+                </div> -->
                 <button type="submit" class="border-2 border-gray-500 rounded-md bg-blue-700 p-1 text-white">
                     投稿する
                 </button>
@@ -34,12 +35,12 @@
         </form>
         <div class="border-r-2 border-b-2 border-t-2 border-l-8 border-black my-6 font-semibold text-2xl rounded-sm">
 
-            <p class="ml-3">スレッド一覧({{data.threadsCount}})</p>
-          </div>
+            <p class="ml-3">スレッド一覧({{data.threads_count}})</p>
+        </div>
         {%for thread in data.threads%}
-            <div class="border-r-2 border-b-2 border-t-2 border-l-8 font-mono py-3 border-gray-500 my-3 ml-3 rounded-sm ">
-                <a href="/thread/{{thread.id}}" class="ml-2 text-blue-800 underline">{{thread.title}}</a>
-            </div>
+        <div class="border-r-2 border-b-2 border-t-2 border-l-8 font-mono py-3 border-gray-500 my-3 ml-3 rounded-sm ">
+            <a href="/thread/{{thread.id}}" class="ml-2 text-blue-800 underline">{{thread.title}}</a>
+        </div>
         {%endfor%}
         <div class="border-r-2 border-b-2 border-t-2 border-l-8 font-mono border-red-400 mt-3 rounded-sm">
             <a href="/" class="text-blue-700 underline ml-3">戻る</a>
