@@ -1,14 +1,9 @@
 from flask import Flask, render_template, request, redirect
-import sqlite3
 from datetime import datetime
 import db
 from pprint import pprint
 
 app = Flask(__name__)
-path = "db.sqlite3"
-con = sqlite3.connect(database=path, check_same_thread=False)
-# con.row_factory = db.dictFactory
-cur = con.cursor()
 
 
 @app.route("/", methods=["GET"])
