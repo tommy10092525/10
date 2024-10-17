@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect
 import sqlite3
 from datetime import datetime
-import features.db as db
+import db
 from pprint import pprint
 
 app = Flask(__name__)
@@ -17,7 +17,7 @@ def index():
     data["threads"]=dict(db.supabase.table("threads").select("*,children(name)").limit(10).execute())["data"]
     for parent in dict(db.supabase.table("parents").select("*").execute())["data"]:
         childCountPairs=[]
-        children=dict(db.supabase.table("children").select("*").execute())["data"]
+        children=dict(db.supabase.table("children").select("*").eq("parent_id",parent["id"]).execute())["data"]
         for child in children:
             childCountPairs.append(dict(child=child,count=dict(db.supabase.table("children").select("*",count="exact",head=True).execute())["count"]))
         data["head"].append(dict(parent=parent,childCountPairs=childCountPairs))

@@ -1,9 +1,0 @@
-import sqlite3
-from datetime import datetime
-from typing import Any
-from features.time_handler import generateTimeCaption
-from supabase import create_client,Client
-
-url="https://dcypaioievdbmvfpevcg.supabase.co"
-key="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRjeXBhaW9pZXZkYm12ZnBldmNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjkwODU1MzcsImV4cCI6MjA0NDY2MTUzN30.mw1W-NYIzliyUNhPXyEooitH7N5D8mzEMR5OQ_MqRuk"
-supabase:Client=create_client(url,key)
